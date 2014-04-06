@@ -121,9 +121,24 @@ public:
 			printf("Failed to Wait For Event \n");
 			return false;
 		}
-		printf("Found Event \n");
-		std::cout<<"Event of Type: "<<event<<" Found \n";
+		std::cout<<"Event of Type: "<<std::hex<<event<<" Found \n";
 		EventType=event;
 		return true;
+	}
+
+	String ReadData()
+	{
+		char buffer[5000];
+		DWORD bytesread=0;
+		size_t size=sizeof(buffer);
+
+		if(!ReadFile(m_file,&buffer,size,&bytesread,NULL))
+		{
+			printf("Failed to Read Data \n");
+		}
+		std::cout<<buffer<<"\n";
+
+		String returnval=String(buffer);
+		return returnval;
 	}
 };
